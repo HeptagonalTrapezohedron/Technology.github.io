@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <title></title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <script type="text/javascript">
+  </script>
+</head>
+<body class="is-preload">
+
+   <!-- Wrapper -->
+   <div id="wrapper">
+
+        <!-- Main -->
+            <div id="main">
+                <div class="inner">
+                        <header id="header">
+                                <a href="../index.html" class="icon solid fa-home"><span class="label">Medium</span></a>
+                        </header>
+
+                        <!-- Content -->
+						<section>
+                                        <header class="main">
+                                            <h1>代理人模式</h1>
+											<h2>Proxy Pattern</h2>
+                                        </header>
+    
+                                        <span class="image main"><img src="images/pic11.jpg" alt="" /></span>
+    
+                                        <p>讓某個物件具有一個替身，藉以控制外界對此物件的接觸</p>
+    
+                                        <hr class="major" />
+    
+                                        <h2>概念</h2>
+                                        
+                                        <span class="image object">
+                                            <img src="images/DecoratorPattern1.jpg" alt="" />
+                                        </span>
+
+                                        <hr class="major" />
+    
+                                        <h2>實作代理人模式</h2>
+                                        <p>實作</p>
+                                        
+                                        <div>
+                                            
+<pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">class</span> ProxyPattern <span style="color:#b060b0; ">{</span>
+	<span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">static</span> <span style="color:#bb7977; ">void</span> main<span style="color:#d2cd86; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#d2cd86; ">]</span> args<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+		SubjectProxyPattern subject <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> <span style="color:#bb7977; font-weight:bold; ">Proxy</span><span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+		subject<span style="color:#d2cd86; ">.</span>request<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">interface</span> SubjectProxyPattern <span style="color:#b060b0; ">{</span>
+    <span style="color:#bb7977; ">void</span> request<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">class</span> RealSubject <span style="color:#e66170; font-weight:bold; ">implements</span> SubjectProxyPattern <span style="color:#b060b0; ">{</span>
+
+	<span style="color:#8695b8; font-weight:bold; ">@Override</span>
+	<span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> request<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+		<span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"RealSubject!"</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+	<span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">class</span> Proxy <span style="color:#e66170; font-weight:bold; ">implements</span> SubjectProxyPattern <span style="color:#b060b0; ">{</span>
+
+	<span style="color:#e66170; font-weight:bold; ">private</span> <span style="color:#e66170; font-weight:bold; ">final</span> SubjectProxyPattern subject <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> RealSubject<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">Proxy</span><span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+    <span style="color:#b060b0; ">}</span>
+
+    <span style="color:#8695b8; font-weight:bold; ">@Override</span>
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> request<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"service() 開始於:"</span> <span style="color:#d2cd86; ">+</span> <span style="color:#e66170; font-weight:bold; ">new</span> <span style="color:#bb7977; font-weight:bold; ">Date</span><span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+
+        subject<span style="color:#d2cd86; ">.</span>request<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+
+        <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"service() 結束於:"</span> <span style="color:#d2cd86; ">+</span> <span style="color:#e66170; font-weight:bold; ">new</span> <span style="color:#bb7977; font-weight:bold; ">Date</span><span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+</pre>
+
+                                        </div>
+
+                                        <hr class="major" />
+    
+                                        <h2>輸出</h2>
+                                        <div>
+                                            <span class="image object">
+                                                <img src="images/ProxyPattern2.jpg" alt="" />
+                                            </span>
+                                        </div>
+
+                                        <hr class="major" />
+                                        <h2>討論</h2>
+                                        
+                                        <hr class="major" />
+    
+                                        <h2>範例網址</h2>
+                                        <a href="">範例網址</a><br>
+
+    
+                        </section>
+                </div>
+            </div>
+   </div>
+
+
+    <!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+</body>
+</html>
