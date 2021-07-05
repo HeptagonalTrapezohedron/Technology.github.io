@@ -30,99 +30,134 @@
                                         <span class="image main"><img src="images/pic11.jpg" alt="" /></span>
     
                                         <p>將請求封裝成物件，以便使用不同的請求、佇列、日誌、參數化物件，也可以支援可以復原的作業</p>
-                                        <hr class="major" />
-    
-                                        <h2>概念</h2>
+
+                                        <!-- <hr class="major" />
+                                        <h2>概念</h2> -->
 
                                         <hr class="major" />
+
+                                        <h2>UML概念</h2>
+                                    
+                                        <span class="image object">
+                                            <img src="images/CommandPatternUML.jpg" alt="" />
+                                        </span>
     
-                                        <h2>實作單例模式</h2>
-                                        <p>貪婪單例模式(Greed Singleton)</p>
+                                        <h2>實作命令模式</h2>
                                         
                                         <div>
 
-<pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">class</span> Singleton <span style="color:#b060b0; ">{</span>
-    <span style="color:#e66170; font-weight:bold; ">private</span> <span style="color:#e66170; font-weight:bold; ">static</span> Singleton instance<span style="color:#b060b0; ">;</span>
-
-    <span style="color:#e66170; font-weight:bold; ">private</span> Singleton<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span><span style="color:#b060b0; ">}</span>
-
-    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">static</span> Singleton getInstance<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-        <span style="color:#9999a9; ">//第一次被呼叫的時候再建立物件</span>
-        <span style="color:#e66170; font-weight:bold; ">if</span><span style="color:#d2cd86; ">(</span>instance <span style="color:#d2cd86; ">=</span><span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">null</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-            instance <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> Singleton<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
-        <span style="color:#b060b0; ">}</span> 
-        <span style="color:#e66170; font-weight:bold; ">return</span> instance<span style="color:#b060b0; ">;</span>
-    <span style="color:#b060b0; ">}</span>
-<span style="color:#b060b0; ">}</span>
-</pre>
-
-    
-                                        </div>
-
-                                        <p>使用synchronized處理多執行緒</p>
-                                        
-                                        <div>
-
-<pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">class</span> SingletonSyn <span style="color:#e66170; font-weight:bold; ">extends</span> Thread<span style="color:#b060b0; ">{</span>
-    <span style="color:#e66170; font-weight:bold; ">private</span> <span style="color:#e66170; font-weight:bold; ">static</span> SingletonSyn instance<span style="color:#b060b0; ">;</span>
-
-    <span style="color:#e66170; font-weight:bold; ">private</span> SingletonSyn<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span> <span style="color:#b060b0; ">}</span>
-
-    <span style="color:#9999a9; ">//多執行緒時使用synchronized保證單一</span>
-    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">static</span> SingletonSyn getInstance<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-        <span style="color:#e66170; font-weight:bold; ">if</span><span style="color:#d2cd86; ">(</span>instance <span style="color:#d2cd86; ">=</span><span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">null</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-            <span style="color:#e66170; font-weight:bold; ">synchronized</span><span style="color:#d2cd86; ">(</span>SingletonSyn<span style="color:#d2cd86; ">.</span>class<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-                <span style="color:#e66170; font-weight:bold; ">if</span><span style="color:#d2cd86; ">(</span>instance <span style="color:#d2cd86; ">=</span><span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">null</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-                    instance <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> SingletonSyn<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
-                <span style="color:#b060b0; ">}</span>    
-            <span style="color:#b060b0; ">}</span>
-        <span style="color:#b060b0; ">}</span> 
-        <span style="color:#e66170; font-weight:bold; ">return</span> instance<span style="color:#b060b0; ">;</span>
-    <span style="color:#b060b0; ">}</span>
-<span style="color:#b060b0; ">}</span>
-</pre>
-                                        </div>
-
-                                        <p>用volatile關鍵字再改進處理多執行緒</p>
-                                        
-                                        <div>
+                                            <pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">class</span> CommandPattern <span style="color:#b060b0; ">{</span>
+                                                <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">static</span> <span style="color:#bb7977; ">void</span> main<span style="color:#d2cd86; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#d2cd86; ">]</span> args<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    <span style="color:#bb7977; font-weight:bold; ">Invoker</span> invoker <span style="color:#d2cd86; ">=</span><span style="color:#e66170; font-weight:bold; ">new</span> <span style="color:#bb7977; font-weight:bold; ">Invoker</span><span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                    
+                                                    Command command_A <span style="color:#d2cd86; ">=</span><span style="color:#e66170; font-weight:bold; ">new</span> ConcreteCommand_A<span style="color:#d2cd86; ">(</span><span style="color:#e66170; font-weight:bold; ">new</span> Receiver_A<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">,</span><span style="color:#00c4c4; ">"你好"</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                    invoker<span style="color:#d2cd86; ">.</span>addCommand<span style="color:#d2cd86; ">(</span>command_A<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                    
+                                                    Command command_B <span style="color:#d2cd86; ">=</span><span style="color:#e66170; font-weight:bold; ">new</span> ConcreteCommand_B<span style="color:#d2cd86; ">(</span><span style="color:#e66170; font-weight:bold; ">new</span> Receiver_B<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">,</span><span style="color:#008c00; ">100</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                    invoker<span style="color:#d2cd86; ">.</span>addCommand<span style="color:#d2cd86; ">(</span>command_B<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                    
+                                                    <span style="color:#9999a9; ">//執行</span>
+                                                    invoker<span style="color:#d2cd86; ">.</span>ExecuteCommand<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                            <span style="color:#b060b0; ">}</span>
                                             
-<pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">class</span> SingletonVol <span style="color:#e66170; font-weight:bold; ">extends</span> Thread<span style="color:#b060b0; ">{</span>
-    <span style="color:#9999a9; ">//Java5 以上volatile</span>
-    <span style="color:#e66170; font-weight:bold; ">private</span> <span style="color:#e66170; font-weight:bold; ">volatile</span> <span style="color:#e66170; font-weight:bold; ">static</span> SingletonVol instance<span style="color:#b060b0; ">;</span>
-
-    <span style="color:#e66170; font-weight:bold; ">private</span> SingletonVol<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span> <span style="color:#b060b0; ">}</span>
-
-    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">static</span> SingletonVol getInstance<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-        <span style="color:#e66170; font-weight:bold; ">if</span><span style="color:#d2cd86; ">(</span>instance <span style="color:#d2cd86; ">=</span><span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">null</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-            <span style="color:#e66170; font-weight:bold; ">synchronized</span><span style="color:#d2cd86; ">(</span>SingletonVol<span style="color:#d2cd86; ">.</span>class<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-                <span style="color:#e66170; font-weight:bold; ">if</span><span style="color:#d2cd86; ">(</span>instance <span style="color:#d2cd86; ">=</span><span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">null</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
-                    instance <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> SingletonVol<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
-                <span style="color:#b060b0; ">}</span>    
-            <span style="color:#b060b0; ">}</span>
-        <span style="color:#b060b0; ">}</span> 
-        <span style="color:#e66170; font-weight:bold; ">return</span> instance<span style="color:#b060b0; ">;</span>
-    <span style="color:#b060b0; ">}</span>
-<span style="color:#b060b0; ">}</span>
-</pre>
-
+                                            <span style="color:#e66170; font-weight:bold; ">class</span> Receiver_A<span style="color:#b060b0; ">{</span>
+                                                
+                                                <span style="color:#bb7977; ">void</span> action<span style="color:#d2cd86; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span> Command<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"Receiver_A:"</span><span style="color:#d2cd86; ">+</span>Command<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                            <span style="color:#b060b0; ">}</span>
+                                            
+                                            <span style="color:#e66170; font-weight:bold; ">class</span> Receiver_B<span style="color:#b060b0; ">{</span>
+                                                <span style="color:#bb7977; ">void</span> action<span style="color:#d2cd86; ">(</span><span style="color:#bb7977; ">int</span> Command<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"Receiver_B:"</span><span style="color:#d2cd86; ">+</span>Command<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                            <span style="color:#b060b0; ">}</span>
+                                            
+                                            <span style="color:#e66170; font-weight:bold; ">interface</span> Command <span style="color:#b060b0; ">{</span>
+                                                 <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> execute<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                 <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> undo<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                            <span style="color:#b060b0; ">}</span>
+                                            
+                                            <span style="color:#e66170; font-weight:bold; ">class</span> ConcreteCommand_A <span style="color:#e66170; font-weight:bold; ">implements</span> Command<span style="color:#b060b0; ">{</span>
+                                                
+                                                Receiver_A receiver_A <span style="color:#d2cd86; ">=</span><span style="color:#e66170; font-weight:bold; ">new</span> Receiver_A<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                <span style="color:#bb7977; font-weight:bold; ">String</span> Command <span style="color:#d2cd86; ">=</span><span style="color:#00c4c4; ">""</span><span style="color:#b060b0; ">;</span>
+                                                
+                                                <span style="color:#e66170; font-weight:bold; ">public</span> ConcreteCommand_A<span style="color:#d2cd86; ">(</span>Receiver_A receiver<span style="color:#d2cd86; ">,</span><span style="color:#bb7977; font-weight:bold; ">String</span> command<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    receiver_A <span style="color:#d2cd86; ">=</span>receiver<span style="color:#b060b0; ">;</span>
+                                                    Command <span style="color:#d2cd86; ">=</span>command<span style="color:#b060b0; ">;</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                                
+                                                <span style="color:#8695b8; font-weight:bold; ">@Override</span>
+                                                <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> execute<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    receiver_A<span style="color:#d2cd86; ">.</span>action<span style="color:#d2cd86; ">(</span>Command<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                            
+                                                <span style="color:#8695b8; font-weight:bold; ">@Override</span>
+                                                <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> undo<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    <span style="color:#9999a9; ">// </span><span style="color:#ffffff; background:#3c215f; ">TODO Auto-generated method stub</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                                
+                                            <span style="color:#b060b0; ">}</span>
+                                            
+                                            <span style="color:#e66170; font-weight:bold; ">class</span> ConcreteCommand_B <span style="color:#e66170; font-weight:bold; ">implements</span> Command<span style="color:#b060b0; ">{</span>
+                                                
+                                                Receiver_B receiver_B <span style="color:#d2cd86; ">=</span><span style="color:#e66170; font-weight:bold; ">new</span> Receiver_B<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                <span style="color:#bb7977; ">int</span> Command <span style="color:#d2cd86; ">=</span><span style="color:#008c00; ">0</span><span style="color:#b060b0; ">;</span>
+                                                
+                                                <span style="color:#e66170; font-weight:bold; ">public</span> ConcreteCommand_B<span style="color:#d2cd86; ">(</span>Receiver_B receiver<span style="color:#d2cd86; ">,</span><span style="color:#bb7977; ">int</span> command<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    receiver_B <span style="color:#d2cd86; ">=</span>receiver<span style="color:#b060b0; ">;</span>
+                                                    Command <span style="color:#d2cd86; ">=</span>command<span style="color:#b060b0; ">;</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                                
+                                                <span style="color:#8695b8; font-weight:bold; ">@Override</span>
+                                                <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> execute<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    receiver_B<span style="color:#d2cd86; ">.</span>action<span style="color:#d2cd86; ">(</span>Command<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                            
+                                                <span style="color:#8695b8; font-weight:bold; ">@Override</span>
+                                                <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> undo<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    <span style="color:#9999a9; ">// </span><span style="color:#ffffff; background:#3c215f; ">TODO Auto-generated method stub</span>
+                                                <span style="color:#b060b0; ">}</span>
+                                            <span style="color:#b060b0; ">}</span>
+                                            
+                                            <span style="color:#e66170; font-weight:bold; ">class</span> Invoker<span style="color:#b060b0; ">{</span>
+                                                 <span style="color:#bb7977; font-weight:bold; ">List</span><span style="color:#d2cd86; ">&lt;</span>Command<span style="color:#d2cd86; ">&gt;</span> commandList <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> <span style="color:#bb7977; font-weight:bold; ">ArrayList</span><span style="color:#d2cd86; ">&lt;</span>Command<span style="color:#d2cd86; ">&gt;</span><span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                            
+                                                 <span style="color:#9999a9; ">//加入命令</span>
+                                                 <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> addCommand<span style="color:#d2cd86; ">(</span>Command command<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                     commandList<span style="color:#d2cd86; ">.</span>add<span style="color:#d2cd86; ">(</span>command<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                 <span style="color:#b060b0; ">}</span>
+                                                 
+                                                 <span style="color:#9999a9; ">//執行命令</span>
+                                                 <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> ExecuteCommand<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                     <span style="color:#9999a9; ">//執行</span>
+                                                     commandList<span style="color:#d2cd86; ">.</span>forEach<span style="color:#d2cd86; ">(</span>item<span style="color:#d2cd86; ">-</span><span style="color:#d2cd86; ">&gt;</span><span style="color:#b060b0; ">{</span>
+                                                         item<span style="color:#d2cd86; ">.</span>execute<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                        <span style="color:#b060b0; ">}</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                     <span style="color:#9999a9; ">//清空</span>
+                                                     commandList<span style="color:#d2cd86; ">.</span>clear<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                 <span style="color:#b060b0; ">}</span>
+                                            <span style="color:#b060b0; ">}</span>
+                                            </pre>                                            
                                         </div>
-
 
                                         <hr class="major" />
     
                                         <h2>輸出</h2>
                                         <div>
-                                            
+                                            <span class="image object">
+                                                <img src="images/CommandPattern2.jpg" alt="" />
+                                            </span>
                                         </div>
 
-                                        <hr class="major" />
+                                        <!-- <hr class="major" />
                                         <h2>討論</h2>
                                         
                                         <hr class="major" />
-    
                                         <h2>範例網址</h2>
-                                        <a href="">範例網址</a><br>
+                                        <a href="">範例網址</a><br> -->
 
     
                         </section>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <title></title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <script type="text/javascript">
+  </script>
+</head>
+<body class="is-preload">
+
+   <!-- Wrapper -->
+   <div id="wrapper">
+
+        <!-- Main -->
+            <div id="main">
+                <div class="inner">
+                        <header id="header">
+                                <a href="../index.html" class="icon solid fa-home"><span class="label">Medium</span></a>
+                        </header>
+
+                        <!-- Content -->
+						<section>
+                                        <header class="main">
+                                            <h1>反覆器模式</h1>
+											<h2>Iterator Pattern</h2>
+                                        </header>
+    
+                                        <span class="image main"><img src="images/pic11.jpg" alt="" /></span>
+    
+                                        <p>能夠取得一個聚集內每個元素而不需要此聚集將其實踐方式暴露出來</p>
+
+										<h2>UML概念</h2>
+                                    
+                                        <span class="image object">
+                                            <img src="images/IteratorPatternUML.jpg" alt="" />
+                                        </span>
+
+                                        <hr class="major" />
+    
+                                        <h2>實作反覆器模式</h2>
+                                        <p>實作</p>
+                                        
+                                        <div>
+ 
+<pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">class</span> IteratorPattern <span style="color:#b060b0; ">{</span>
+	<span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">static</span> <span style="color:#bb7977; ">void</span> main<span style="color:#d2cd86; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#d2cd86; ">]</span> args<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+		 ShoesMenu shoesMenu <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> ShoesMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+		 ShoesMenuIterator shoesMenuIterator <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> ShoesMenuIterator<span style="color:#d2cd86; ">(</span>shoesMenu<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+		 ClothesMenu clothesMenu <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> ClothesMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+		 ClothesMenuIterator clothesMenuIterator <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> ClothesMenuIterator<span style="color:#d2cd86; ">(</span>clothesMenu<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+		 
+		 Waitress waitress <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> Waitress<span style="color:#d2cd86; ">(</span>
+				 	shoesMenu<span style="color:#d2cd86; ">,</span>
+				 	clothesMenu<span style="color:#d2cd86; ">,</span>
+	                shoesMenuIterator<span style="color:#d2cd86; ">,</span>
+	                clothesMenuIterator<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+		 waitress<span style="color:#d2cd86; ">.</span>introduceMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">interface</span> Menu&lt;T&gt; <span style="color:#b060b0; ">{</span>
+    <span style="color:#bb7977; ">void</span> setMenuItem<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    T getMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">class</span> ShoesMenu <span style="color:#e66170; font-weight:bold; ">implements</span> Menu&lt;ArrayList&lt;String&gt;&gt; <span style="color:#b060b0; ">{</span>
+    <span style="color:#bb7977; font-weight:bold; ">ArrayList</span><span style="color:#d2cd86; ">&lt;</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">&gt;</span> menu<span style="color:#b060b0; ">;</span>
+
+    ShoesMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>setMenuItem<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setMenuItem<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> <span style="color:#bb7977; font-weight:bold; ">ArrayList</span><span style="color:#d2cd86; ">&lt;</span><span style="color:#d2cd86; ">&gt;</span><span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu<span style="color:#d2cd86; ">.</span>add<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"球鞋"</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu<span style="color:#d2cd86; ">.</span>add<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"布鞋"</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">ArrayList</span><span style="color:#d2cd86; ">&lt;</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">&gt;</span> getMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        <span style="color:#e66170; font-weight:bold; ">return</span> menu<span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">class</span> ClothesMenu <span style="color:#e66170; font-weight:bold; ">implements</span> Menu&lt;String[]&gt;<span style="color:#b060b0; ">{</span>
+	 <span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#d2cd86; ">]</span> menu<span style="color:#b060b0; ">;</span>
+	 
+	 ClothesMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+		 <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> <span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#008c00; ">2</span><span style="color:#d2cd86; ">]</span><span style="color:#b060b0; ">;</span>
+		 <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>setMenuItem<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+     <span style="color:#b060b0; ">}</span>
+	 
+	 <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> setMenuItem<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+	        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu<span style="color:#d2cd86; ">[</span><span style="color:#008c00; ">0</span><span style="color:#d2cd86; ">]</span> <span style="color:#d2cd86; ">=</span> <span style="color:#00c4c4; ">"T shit"</span><span style="color:#b060b0; ">;</span>
+	        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu<span style="color:#d2cd86; ">[</span><span style="color:#008c00; ">1</span><span style="color:#d2cd86; ">]</span> <span style="color:#d2cd86; ">=</span> <span style="color:#00c4c4; ">"毛衣"</span><span style="color:#b060b0; ">;</span>
+	 <span style="color:#b060b0; ">}</span>
+	 
+	 <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#d2cd86; ">]</span> getMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+	        <span style="color:#e66170; font-weight:bold; ">return</span> menu<span style="color:#b060b0; ">;</span>
+	 <span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">class</span> ShoesMenuIterator <span style="color:#e66170; font-weight:bold; ">implements</span> Iterator&lt;String&gt; <span style="color:#b060b0; ">{</span>
+    <span style="color:#bb7977; font-weight:bold; ">ArrayList</span><span style="color:#d2cd86; ">&lt;</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">&gt;</span> menu<span style="color:#b060b0; ">;</span>
+    <span style="color:#bb7977; ">int</span> count <span style="color:#d2cd86; ">=</span> <span style="color:#d2cd86; ">-</span><span style="color:#008c00; ">1</span><span style="color:#b060b0; ">;</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> ShoesMenuIterator<span style="color:#d2cd86; ">(</span>Menu<span style="color:#d2cd86; ">&lt;</span><span style="color:#bb7977; font-weight:bold; ">ArrayList</span><span style="color:#d2cd86; ">&lt;</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">&gt;</span><span style="color:#d2cd86; ">&gt;</span> menu<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu <span style="color:#d2cd86; ">=</span> menu<span style="color:#d2cd86; ">.</span>getMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">boolean</span> hasNext<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        <span style="color:#e66170; font-weight:bold; ">if</span> <span style="color:#d2cd86; ">(</span>count <span style="color:#d2cd86; ">+</span> <span style="color:#008c00; ">1</span> <span style="color:#d2cd86; ">&gt;</span><span style="color:#d2cd86; ">=</span> menu<span style="color:#d2cd86; ">.</span>size<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+            <span style="color:#e66170; font-weight:bold; ">return</span> <span style="color:#e66170; font-weight:bold; ">false</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#b060b0; ">}</span>
+        <span style="color:#e66170; font-weight:bold; ">return</span> <span style="color:#e66170; font-weight:bold; ">true</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">String</span> next<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        count<span style="color:#d2cd86; ">+</span><span style="color:#d2cd86; ">+</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">return</span> <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu<span style="color:#d2cd86; ">.</span>get<span style="color:#d2cd86; ">(</span>count<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">class</span> ClothesMenuIterator <span style="color:#e66170; font-weight:bold; ">implements</span> Iterator&lt;String&gt; <span style="color:#b060b0; ">{</span>
+    <span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#d2cd86; ">]</span> menu<span style="color:#b060b0; ">;</span>
+    <span style="color:#bb7977; ">int</span> count <span style="color:#d2cd86; ">=</span> <span style="color:#d2cd86; ">-</span><span style="color:#008c00; ">1</span><span style="color:#b060b0; ">;</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> ClothesMenuIterator<span style="color:#d2cd86; ">(</span>Menu<span style="color:#d2cd86; ">&lt;</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#d2cd86; ">]</span><span style="color:#d2cd86; ">&gt;</span> menu<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu <span style="color:#d2cd86; ">=</span> menu<span style="color:#d2cd86; ">.</span>getMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">boolean</span> hasNext<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        <span style="color:#e66170; font-weight:bold; ">if</span> <span style="color:#d2cd86; ">(</span>count <span style="color:#d2cd86; ">+</span> <span style="color:#008c00; ">1</span> <span style="color:#d2cd86; ">&gt;</span><span style="color:#d2cd86; ">=</span> menu<span style="color:#d2cd86; ">.</span>length<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+            <span style="color:#e66170; font-weight:bold; ">return</span> <span style="color:#e66170; font-weight:bold; ">false</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#b060b0; ">}</span>
+        <span style="color:#e66170; font-weight:bold; ">return</span> <span style="color:#e66170; font-weight:bold; ">true</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; font-weight:bold; ">String</span> next<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+        count<span style="color:#d2cd86; ">+</span><span style="color:#d2cd86; ">+</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">return</span> <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>menu<span style="color:#d2cd86; ">[</span>count<span style="color:#d2cd86; ">]</span><span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+
+<span style="color:#e66170; font-weight:bold; ">class</span> Waitress <span style="color:#b060b0; ">{</span>
+	ShoesMenu shoesMenu<span style="color:#b060b0; ">;</span>
+	ClothesMenu clothesMenu<span style="color:#b060b0; ">;</span>
+	ShoesMenuIterator shoesMenuIterator<span style="color:#b060b0; ">;</span>
+    ClothesMenuIterator clothesMenuIterator<span style="color:#b060b0; ">;</span>
+    
+    Waitress<span style="color:#d2cd86; ">(</span>ShoesMenu shoesMenu<span style="color:#d2cd86; ">,</span>ClothesMenu clothesMenu<span style="color:#d2cd86; ">,</span>ShoesMenuIterator shoesMenuIterator<span style="color:#d2cd86; ">,</span>ClothesMenuIterator clothesMenuIterator<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>shoesMenu <span style="color:#d2cd86; ">=</span> shoesMenu<span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>clothesMenu <span style="color:#d2cd86; ">=</span> clothesMenu<span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>shoesMenuIterator <span style="color:#d2cd86; ">=</span> shoesMenuIterator<span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">this</span><span style="color:#d2cd86; ">.</span>clothesMenuIterator <span style="color:#d2cd86; ">=</span> clothesMenuIterator<span style="color:#b060b0; ">;</span>
+    <span style="color:#b060b0; ">}</span>
+
+    <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> introduceMenu<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">{</span>
+        <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"介紹鞋子"</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">while</span><span style="color:#d2cd86; ">(</span>shoesMenuIterator<span style="color:#d2cd86; ">.</span>hasNext<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+            <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span>shoesMenuIterator<span style="color:#d2cd86; ">.</span>next<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#b060b0; ">}</span>
+        <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"介紹衣服"</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#e66170; font-weight:bold; ">while</span><span style="color:#d2cd86; ">(</span>clothesMenuIterator<span style="color:#d2cd86; ">.</span>hasNext<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+            <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span>clothesMenuIterator<span style="color:#d2cd86; ">.</span>next<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+        <span style="color:#b060b0; ">}</span>
+    <span style="color:#b060b0; ">}</span>
+<span style="color:#b060b0; ">}</span>
+</pre>
+
+                                        </div>
+
+                                        <hr class="major" />
+    
+                                        <h2>輸出</h2>
+                                        <div>
+                                            <span class="image object">
+                                                <img src="images/IteratorPattern2.jpg" alt="" />
+                                            </span>
+                                        </div>
+
+										<p></p>
+
+										<hr class="major" />
+										<h2>Java上實際應用舉例：for/in 語法</h2>
+	
+										<h2>實作示意</h2> 
+	
+										<div>
+
+<pre style="color:#d1d1d1;background:#000000;">for(object obj: collection) <span style="color:#b060b0; ">{</span>
+	<span style="color:#d2cd86; ">.</span><span style="color:#d2cd86; ">.</span><span style="color:#d2cd86; ">.</span>
+<span style="color:#b060b0; ">}</span>
+</pre>
+										</div>
+										
+										<!-- <hr class="major" />
+										<h2>實作示意</h2> -->
+                                        
+                                        <!-- <hr class="major" />
+    
+                                        <h2>範例網址</h2>
+                                        <a href="">範例網址</a><br> -->
+
+    
+                        </section>
+                </div>
+            </div>
+   </div>
+
+
+    <!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+</body>
+</html>

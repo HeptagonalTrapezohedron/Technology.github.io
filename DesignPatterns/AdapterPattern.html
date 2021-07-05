@@ -30,10 +30,14 @@
                                         <span class="image main"><img src="images/pic11.jpg" alt="" /></span>
     
                                         <p>將一個類別的介面轉換成另一個介面以供客戶使用，轉接器讓原本介面不相容的類別可以合作</p>
+                                        
                                         <hr class="major" />
-    
-                                        <h2>概念</h2>
 
+                                        <h2>UML概念</h2>
+                                        
+                                        <span class="image object">
+                                            <img src="images/AdapterPatternUML.jpg" alt="" />
+                                        </span>
                                         <hr class="major" />
 
                                         <h2>實作</h2>
@@ -41,39 +45,77 @@
                                         
                                         <div>
 
-
-
-    
+                                            <pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">class</span> AdapterPattern <span style="color:#b060b0; ">{</span>
+                                                <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#e66170; font-weight:bold; ">static</span> <span style="color:#bb7977; ">void</span> main<span style="color:#d2cd86; ">(</span><span style="color:#bb7977; font-weight:bold; ">String</span><span style="color:#d2cd86; ">[</span><span style="color:#d2cd86; ">]</span> args<span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                    HDMI adapterHDMItoVGA <span style="color:#d2cd86; ">=</span> <span style="color:#e66170; font-weight:bold; ">new</span> AdapterHDMItoVGA<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                    adapterHDMItoVGA<span style="color:#d2cd86; ">.</span>isHDMI<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                                   <span style="color:#b060b0; ">}</span>
+                                           <span style="color:#b060b0; ">}</span>
+                                           
+                                           <span style="color:#9999a9; ">/* Target  HDMI接口*/</span>
+                                           <span style="color:#e66170; font-weight:bold; ">abstract</span> <span style="color:#e66170; font-weight:bold; ">class</span> HDMI <span style="color:#b060b0; ">{</span>
+                                               
+                                               <span style="color:#bb7977; ">void</span> isHDMI<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                   <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"is HDMI"</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                               <span style="color:#b060b0; ">}</span>
+                                           <span style="color:#b060b0; ">}</span>
+                                           
+                                           <span style="color:#9999a9; ">/* Adaptee VGA接口*/</span>
+                                           <span style="color:#e66170; font-weight:bold; ">class</span> VGA  <span style="color:#b060b0; ">{</span>
+                                               
+                                               <span style="color:#bb7977; ">void</span> isVGA<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                   <span style="color:#bb7977; font-weight:bold; ">System</span><span style="color:#d2cd86; ">.</span>out<span style="color:#d2cd86; ">.</span>println<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"is VGA"</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                               <span style="color:#b060b0; ">}</span>
+                                           <span style="color:#b060b0; ">}</span>
+                                           
+                                           <span style="color:#9999a9; ">/* Adapter 因為不能修改Adaptee 宣告另一個類別繼承Target 包含Adaptee物件  轉接器*/</span>
+                                           <span style="color:#e66170; font-weight:bold; ">class</span> AdapterHDMItoVGA <span style="color:#e66170; font-weight:bold; ">extends</span> HDMI<span style="color:#b060b0; ">{</span>
+                                               
+                                               <span style="color:#e66170; font-weight:bold; ">private</span> VGA vga <span style="color:#d2cd86; ">=</span><span style="color:#e66170; font-weight:bold; ">new</span> VGA<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                               
+                                               <span style="color:#8695b8; font-weight:bold; ">@Override</span>
+                                               <span style="color:#e66170; font-weight:bold; ">public</span> <span style="color:#bb7977; ">void</span> isHDMI<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+                                                   vga<span style="color:#d2cd86; ">.</span>isVGA<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+                                               <span style="color:#b060b0; ">}</span>
+                                           <span style="color:#b060b0; ">}</span>
+                                           </pre>
                                         </div>
 
-                                        <p>使用synchronized處理多執行緒</p>
                                         
-                                        <div>
-
-                                        </div>
-
-                                        <p>用volatile關鍵字再改進處理多執行緒</p>
-                                        
-                                        <div>
-                                            
-
-                                        </div>
-
 
                                         <hr class="major" />
     
                                         <h2>輸出</h2>
                                         <div>
-                                            
+                                            <span class="image object">
+                                                <img src="images/AdapterPattern2.jpg" alt="" />
+                                            </span>
                                         </div>
 
-                                        <hr class="major" />
+                                        <!-- <hr class="major" />
+                                        <h2>Java上實際應用舉例：舊Enumeration和新Iterator</h2>
+
+                                        <h2>舊Enumeration</h2>
+
+                                        <span class="image object">
+                                            <img src="images/StrategyPatternServletUML.jpg" alt="" />
+                                        </span>
+
+                                        <p>聚合(collection)型態(例如:Vector,Stack,Hashtable)都實踐一個elements()方法可以回傳一個Enumeration(列舉)</p>
+
+                                        <h2>UML概念</h2>
+
+                                        <span class="image object">
+                                            <img src="images/StrategyPatternServletUML.jpg" alt="" />
+                                        </span> -->
+
+                                        <!-- <hr class="major" />
                                         <h2>討論</h2>
                                         
                                         <hr class="major" />
     
                                         <h2>範例網址</h2>
-                                        <a href="">範例網址</a><br>
+                                        <a href="">範例網址</a><br> -->
 
     
                         </section>

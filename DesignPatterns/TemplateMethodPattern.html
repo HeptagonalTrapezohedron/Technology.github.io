@@ -32,11 +32,11 @@
                                         <p>將一個演算法的骨架定義在一個方法中，樣板方法讓次類別不改變演算法架構下重新定義演算法中某些步驟</p>
     
                                         <hr class="major" />
-    
-                                        <h2>概念</h2>
+
+                                        <h2>UML概念</h2>
                                         
                                         <span class="image object">
-                                            <img src="images/DecoratorPattern1.jpg" alt="" />
+                                            <img src="images/TemplateMethodPatternUML.jpg" alt="" />
                                         </span>
 
                                         <hr class="major" />
@@ -128,11 +128,44 @@
 
                                         <hr class="major" />
                                         <h2>討論</h2>
+
+                                        <hr class="major" />
+                                        <h2>Java上實際應用舉例：Servlet的策略模式和樣板方法模式</h2>
+
+                                        <h2>UML概念</h2>
+
+                                        <span class="image object">
+                                            <img src="images/StrategyPatternServletUML.jpg" alt="" />
+                                        </span>
                                         
                                         <hr class="major" />
+                                        <h2>實作示意</h2>
+
+                                        <div>
+
+<pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">protected</span> void service (HttpServletRequest req, HttpServletResponse res) <span style="color:#e66170; font-weight:bold; ">throws</span> ServletException, IOException <span style="color:#b060b0; ">{</span>
+    <span style="color:#bb7977; font-weight:bold; ">String</span> method<span style="color:#d2cd86; ">=</span>req<span style="color:#d2cd86; ">.</span>getMethod<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+      <span style="color:#e66170; font-weight:bold; ">if</span><span style="color:#d2cd86; ">(</span>method<span style="color:#d2cd86; ">.</span>equals<span style="color:#d2cd86; ">(</span>METHOD_GET<span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+          doGet<span style="color:#d2cd86; ">(</span>req<span style="color:#d2cd86; ">,</span>resp<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+      <span style="color:#b060b0; ">}</span><span style="color:#e66170; font-weight:bold; ">else</span> <span style="color:#e66170; font-weight:bold; ">if</span><span style="color:#d2cd86; ">(</span>method<span style="color:#d2cd86; ">.</span>equals<span style="color:#d2cd86; ">(</span>METHOD_HEAD<span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span> <span style="color:#b060b0; ">{</span>
+          matbeSetLastModified<span style="color:#d2cd86; ">(</span>resp<span style="color:#d2cd86; ">,</span> lastModified<span style="color:#d2cd86; ">)</span><span style="color:#b060b0; ">;</span>
+      <span style="color:#b060b0; ">}</span><span style="color:#e66170; font-weight:bold; ">else</span> <span style="color:#e66170; font-weight:bold; ">if</span>
+
+    <span style="color:#d2cd86; ">.</span><span style="color:#d2cd86; ">.</span><span style="color:#d2cd86; ">.</span><span style="color:#d2cd86; ">.</span><span style="color:#d2cd86; ">.</span><span style="color:#d2cd86; ">.</span>
+<span style="color:#b060b0; ">}</span>
+</pre>
+                                        </div>
+                                        <p>HttpServlet 透過繼承GenericServlet實現Servlet介面，在自己service方法中針對不同Http請求類型調用相對應方法</p>
+
+                                        <hr class="major" />
+    
+                                        <h2>相關</h2>
+                                        <a href="StrategyPattern.html">策略模式(Strategy Pattern)</a><br>
+
+                                        <!-- <hr class="major" />
     
                                         <h2>範例網址</h2>
-                                        <a href="">範例網址</a><br>
+                                        <a href="">範例網址</a><br> -->
 
     
                         </section>
